@@ -1,3 +1,0 @@
-Algoritm100: Do it 문제집
-im: 백준 im 20문제
-swea: swea과제 문제풀이
