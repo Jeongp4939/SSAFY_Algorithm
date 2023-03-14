@@ -13,6 +13,8 @@ def dfs(y,x,cnt=1):
     global Max
     # dfs가 진행되며 cnt가 Max보다 높아지면 Max에 cnt를 저장
     Max=max(Max,cnt)
+    if Max==26:
+        return
     # ASCII 번호를 이용해서 visited의 방문 체크
     for i in range(4):
         ny=y+dy[i]
@@ -33,3 +35,33 @@ visited[ord(arr[0][0])-ord('A')] = 1
 Max=0
 dfs(0,0)
 print(Max)
+
+# import sys
+# input = sys.stdin.readline
+#
+# dy,dx = [-1,1,0,0],[0,0,-1,1]
+# # 처음 말이 놓여진 위치도 카운트 해야하므로 1로 시작
+# def dfs(y,x,cnt=1):
+#     global Max
+#     # dfs가 진행되며 cnt가 Max보다 높아지면 Max에 cnt를 저장
+#     Max=max(Max,cnt)
+#     # ASCII 번호를 이용해서 visited의 방문 체크
+#     for i in range(4):
+#         ny=y+dy[i]
+#         nx=x+dx[i]
+#         if 0<=ny<n and 0<=nx<m:
+#             if arr[ny][nx] in visited:continue
+#             visited.add(arr[ny][nx])
+#             dfs(ny,nx,cnt+1)
+#             visited.remove(arr[ny][nx])
+#
+#
+# n,m = map(int,input().split())
+# arr=[list(input()) for _ in range(n)]
+# # visited set 생성
+# visited = set()
+# visited.add(arr[0][0])
+# Max=0
+# dfs(0,0)
+# print(Max)
+
