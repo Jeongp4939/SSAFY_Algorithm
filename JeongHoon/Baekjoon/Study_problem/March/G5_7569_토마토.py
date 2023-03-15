@@ -90,9 +90,9 @@ dy,dx,dh =[-1,1,0,0,0,0],[0,0,-1,1,0,0],[0,0,0,0,1,-1]
 def bfs(h,y,x):
     q=deque([[h,y,x]])
     visited = [[[0]*m for _ in range(n)] for _ in range(H)]
+    visited[h][y][x]=1
     while q:
         h,y,x = q.popleft()
-        visited[h][y][x]=1
         for i in range(6):
             ny = y + dy[i]
             nx = x + dx[i]
@@ -100,15 +100,14 @@ def bfs(h,y,x):
         if 0<=ny<n and 0<=nx<m and 0<=nh<H:
             # 토마토가 존재하지 않으면 패스
             if arr[nh][ny][nx]==-1: continue
-            # 시간이 지나면서 익은 토마토면 확인하기
-            if not arr[nh][ny][nx] and not visited[nh][ny][nx]:
-                visited[nh][ny][nx] = min(visited[nh][ny][nx],visited[h][y][x]+1)
-                q.append(nh,ny,nx)
-            # 익은 토마토일 때 -> visited는 0이라 생각하면 될듯
-            elif arr[nh][ny][nx] and visited[nh][ny][nx]:
+            # 방문을 안한 곳일 때
+            if not visited[nh][ny][nx]:
+                if arr[nh][ny][nx]:
+                    pass
+                else:
+                    pass
+            else:
                 pass
-
-
 
 m, n, H = map(int, input().split())
 arr = [[list(map(int,input().split())) for _ in range(n)] for _ in range(H)]
