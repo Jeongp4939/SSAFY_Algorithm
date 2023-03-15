@@ -83,7 +83,48 @@
 #         print(-1)
 
 
-# from collections import deque
-#
-# dy,dx =[-1,1,0,0,0],[0,0,-1,1,0]
-# dh=[1,-1]
+from collections import deque
+
+dy,dx,dh =[-1,1,0,0,0,0],[0,0,-1,1,0,0],[0,0,0,0,1,-1]
+
+def bfs(h,y,x):
+    q=deque([[h,y,x]])
+    visited = [[[0]*m for _ in range(n)] for _ in range(H)]
+    while q:
+        h,y,x = q.popleft()
+        visited[h][y][x]=1
+        for i in range(6):
+            ny = y + dy[i]
+            nx = x + dx[i]
+            nh = h + dh[i]
+        if 0<=ny<n and 0<=nx<m and 0<=nh<H:
+            # 토마토가 존재하지 않으면 패스
+            if arr[nh][ny][nx]==-1: continue
+            # 시간이 지나면서 익은 토마토면 확인하기
+            if not arr[nh][ny][nx] and not visited[nh][ny][nx]:
+                visited[nh][ny][nx] = min(visited[nh][ny][nx],visited[h][y][x]+1)
+                q.append(nh,ny,nx)
+            # 익은 토마토일 때 -> visited는 0이라 생각하면 될듯
+            elif arr[nh][ny][nx] and visited[nh][ny][nx]:
+                pass
+
+
+
+m, n, H = map(int, input().split())
+arr = [[list(map(int,input().split())) for _ in range(n)] for _ in range(H)]
+visited = [[[0]*m for _ in range(n)] for _ in range(H)]
+rlt = int(28e8)
+flag = 0
+for h in range(H):
+    if flag: break
+    for i in range(n):
+        if flag: break
+        for j in range(m):
+            if arr[h][i][j]==1:
+                hh,y,x = h,i,j
+                flag = 1
+                break
+bfs(h,y,x)
+
+
+
