@@ -25,7 +25,6 @@ def dfs(y,x,cnt=1):
             dfs(ny,nx,cnt+1)
             visited[ord(arr[ny][nx])-ord('A')]=0
 
-
 n,m = map(int,input().split())
 arr=[list(input()) for _ in range(n)]
 # 알파벳의 수만큼 visited 리스트 생성
