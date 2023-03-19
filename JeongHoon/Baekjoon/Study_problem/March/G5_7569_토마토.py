@@ -87,13 +87,12 @@ from collections import deque
 
 dy,dx,dh =[-1,1,0,0,0,0],[0,0,-1,1,0,0],[0,0,0,0,1,-1]
 
-def bfs(h,y,x):
+def bfs(q):
     rlt = 0
-    q=deque([(h,y,x)])
-    visited = [[[0]*m for _ in range(n)] for _ in range(H)]
-    visited[h][y][x]=1
     while q:
         h,y,x = q.popleft()
+        if not visited[h][y][x]:
+            visited[h][y][x]=1
         for i in range(6):
             ny = y + dy[i]
             nx = x + dx[i]
@@ -110,66 +109,35 @@ def bfs(h,y,x):
                         visited[nh][ny][nx] = visited[h][y][x]+1
                         rlt = max(rlt,visited[nh][ny][nx])
                         q.append((nh,ny,nx))
-                else:
-                    if arr[nh][ny][nx]: continue
-                    else:
-                        if visited[nh][ny][nx] > visited[h][y][x]+1:
-                            visited[nh][ny][nx] = min(visited[nh][ny][nx],visited[h][y][x]+1)
-                            rlt = max(rlt,visited[nh][ny][nx])
-                            q.append((nh,ny,nx))
-    return max(-1,rlt-1)
+    return max(-1,rlt)
 
 def is_pos():
-    Max = H*n*m
-    flag=1
     for h in range(H):
         for i in range(n):
             for j in range(m):
-                cnt0=cnt1=cnt2=0
-                a_cnt=cnt=0
-                if arr[h][i][j]==-1:
-                    cnt0+=1
-                elif arr[h][i][j]==0:
-                    cnt1+=1
-                    for d in range(6):
-                        ny = i + dy[d]
-                        nx = j + dx[d]
-                        nh = h + dh[d]
-                        if 0 <= ny < n and 0 <= nx < m and 0 <= nh < H:
-                            a_cnt+=1
-                            if arr[nh][ny][nx]==-1:
-                                cnt+=1
-                    if a_cnt==cnt:
-                        flag=0
-                else:
-                    cnt2+=1
-    if cnt0+cnt1==Max or not flag:
-        return 0
-    elif cnt0+cnt1==Max or cnt2==Max:
-        return 2
+                if arr[h][i][j] == 0 and visited[h][i][j]==0:
+                    return 0
     return 1
 
 m, n, H = map(int, input().split())
 arr = [[list(map(int,input().split())) for _ in range(n)] for _ in range(H)]
 visited = [[[0]*m for _ in range(n)] for _ in range(H)]
-rlt = int(28e8)
+q = deque()
 flag = 0
-if is_pos()==1:
-    for h in range(H):
-        if flag: break
-        for i in range(n):
-            if flag: break
-            for j in range(m):
-                if arr[h][i][j]==1:
-                    hh,y,x = h,i,j
-                    flag = 1
-                    break
-    rlt = bfs(hh,y,x)
-elif is_pos()==2:
-    rlt=0
+for h in range(H):
+    for i in range(n):
+        for j in range(m):
+            if arr[h][i][j]==1:
+                q.append((h,i,j))
+rlt = bfs(q)
+
+if is_pos():
+    if rlt>0:
+        print(rlt-1)
+    else:
+        print(rlt)
 else:
-    rlt = -1
-print(rlt)
+    print(-1)
 
 
 

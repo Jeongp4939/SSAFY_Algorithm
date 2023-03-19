@@ -1,14 +1,23 @@
-D=[0]*100000
+# https://www.acmicpc.net/problem/1697
 
-n,k = map(int,(input().split()))
+from collections import deque
+D = [0]*100001
 
-for i in range(1,10000//n):
-    D[i*n]=i
-    for j in range(1,n-1):
-        D[i*n+j]=D[i*n]+j
-    for j in range(1,n-1):
-        D[(i+1)*n-j] = min(D[i*n]+j,D[(i+1)*n-j])
-Min = int(28e8)
+def bfs(n):
+    q = deque()
+    q.append(n)
+    D[n]=1
+    while q:
+        n = q.popleft()
+        dd = [1, -1, n]
+        for i in range(3):
+            nn = n+dd[i]
+            if 0<=nn<100001:
+                if not D[nn]:
+                    D[nn] = D[n]+1
+                    q.append(nn)
+                if nn==k:
+                    return D[nn]-1
 
-print(D[k])
-
+n,k = map(int,input().split())
+print(bfs(n))
