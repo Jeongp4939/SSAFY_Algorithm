@@ -140,5 +140,45 @@ else:
     print(-1)
 
 
+# chatGPT 생성 코드
+# from collections import deque
+# 
+# # 입력 받기
+# M, N, H = map(int, input().split())
+# boxes = [[list(map(int, input().split())) for _ in range(N)] for _ in range(H)]
+# 
+# # 익은 토마토 큐에 담기
+# queue = deque()
+# for h in range(H):
+#     for n in range(N):
+#         for m in range(M):
+#             if boxes[h][n][m] == 1:
+#                 queue.append((h, n, m, 0))
+# 
+# # BFS 알고리즘으로 토마토 익히기
+# dh = [-1, 1, 0, 0, 0, 0]
+# dn = [0, 0, -1, 1, 0, 0]
+# dm = [0, 0, 0, 0, -1, 1]
+# max_day = 0
+# while queue:
+#     h, n, m, day = queue.popleft()
+#     if day > max_day:
+#         max_day = day
+#     for i in range(6):
+#         nh, nn, nm = h+dh[i], n+dn[i], m+dm[i]
+#         if 0 <= nh < H and 0 <= nn < N and 0 <= nm < M and boxes[nh][nn][nm] == 0:
+#             boxes[nh][nn][nm] = 1
+#             queue.append((nh, nn, nm, day+1))
+# 
+# # 모든 토마토가 익었는지 확인하기
+# for h in range(H):
+#     for n in range(N):
+#         for m in range(M):
+#             if boxes[h][n][m] == 0:
+#                 print(-1)
+#                 exit()
+# 
+# print(max_day)
+
 
 
