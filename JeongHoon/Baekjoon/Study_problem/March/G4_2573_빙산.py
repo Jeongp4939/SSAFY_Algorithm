@@ -1,4 +1,5 @@
 # https://www.acmicpc.net/problem/2573
+"""
 from collections import deque
 import copy
 
@@ -53,9 +54,65 @@ for t in range(500):
     if cnt >=2:
         rlt=t
         break
-    for i in arr:
-        if sum(i):
-            continue
+
     rlt=0
+
+print(rlt)
+"""
+
+
+from collections import deque
+
+def bfs(y,x):
+    q = deque([(y, x)])
+    visited[y][x] = 1
+    while q:
+        y, x = q.popleft()
+        for d in range(4):
+            ny = y + dy[d]
+            nx = x + dx[d]
+            if 0 <= ny < n and 0 <= nx < m:
+                if arr[ny][nx] and not visited[ny][nx]:
+                    visited[ny][nx] = 1
+                    q.append((ny, nx))
+    return
+
+def melting():
+    temp=[[0]*m for _ in range(n)]
+    for i in range(n):
+        for j in range(m):
+            cnt=0
+            for d in range(4):
+                ny = i + dy[d]
+                nx = j + dx[d]
+                if 0 <= ny < n and 0 <= nx < m:
+                    if not arr[ny][nx]:
+                        cnt+=1
+            temp[i][j]=cnt
+    for i in range(n):
+        for j in range(m):
+            arr[i][j]=max(arr[i][j]-temp[i][j],0)
+
+
+dy,dx = [-1,1,0,0],[0,0,-1,1]
+n,m = map(int,input().split())
+arr = [list(map(int,input().split())) for _ in range(n)]
+rlt = 0
+
+for t in range(500):
+    visited = [[0] * m for _ in range(n)]
+    cnt=0
+    for i in range(n):
+        for j in range(m):
+            if arr[i][j] and not visited[i][j]:
+                cnt+=1
+                # bfs 실행
+                bfs(i,j)
+    melting()
+    if cnt >=2:
+        rlt=t
+        break
+    elif cnt==0:
+        break
 
 print(rlt)
