@@ -36,6 +36,18 @@ print(*sorted(result))
 """
 
 # 독수리 3형제
+#
+# visited 가 0이면 sum에 food[i]*2**depth를 더해주고
+# visited 가 1이면 sum에 0을 더함
+
+def dfs(depth,Sum=0):
+    # 3마리 독수리가 먹이를 먹었다면 return
+    if depth ==3:
+        return
+
+    # 6칸의 먹이
+    for j in range(6):
+       pass
 
 bird = {0:[0,1,2],1:[3,4,5],2:[1,2,3,4]}
 food = list(map(int,input().split()))
@@ -43,38 +55,7 @@ visited=[0]*6
 Max=0
 n = int(input())
 result = 0
-if n == 1:
-    for i in range(3):
-        idx = food.index(max(food))
-        result += food[idx]
-        food[idx]=0
-elif n == 2:
-    for i in range(3):
-        idx = food.index(max(food))
-        result += food[idx]
-        food[idx] = 0
-    result= result*2 + sum(food)
-else:
-    cnt=0
-    # 가장 작은 값들을 처음에 추가(0도 상관 없음)
-    for i in range(3):
-        idx = food.index(min(food))
-        result += food[idx]
-        if food[idx]!=0:
-            cnt+=1
-        food[idx] = 0
-    # 먹이 두배로 증가
-    food = [x*2 for x in food]
-    if cnt==2:
-        Min = 1000000
-        idx = 0
-        for i in range(6):
-            if food[i] != 0 and food[i]<Min:
-                idx = i
-                Min = food[i]
-        result += food[idx]
-        food[idx]=0
-    food = [x * 2 for x in food]
-    result+=sum(food)
 
-print(result)
+for i in range(n):
+    dfs()
+
