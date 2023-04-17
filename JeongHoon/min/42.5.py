@@ -75,33 +75,35 @@ n = int(input())
 dfs()
 print(Max)
 """
+"""
 # 디자이너의 손길
-#
-# def score_calc(s:str)->int:
-#     ln = len(s)
-#     score = 0
-#     for i in range(1,ln):
-#         if s[i-1]==s[i]:
-#             score-=50
-#         elif abs(ord(s[i-1])-ord(s[i]))<=5:
-#             score+=3
-#         elif abs(ord(s[i-1])-ord(s[i]))>=20:
-#             score+=10
-#     return score
-#
-# def swap_str(depth:int, strlen:int, S:str):
-#     global Max
-#     if depth==n:
-#         Max = max(Max,score_calc(S))
-#         return
-#     for i in range(strlen):
-#         for j in range(i+1,strlen):
-#             swap_str(depth+1, strlen, S[:i]+S[j]+S[i+1:j]+S[i]+S[j+1:])
-#
-# st= input()
-# st_len = len(st)
-# n = int(input())
-# Max = 0
-# swap_str(0,st_len,st)
-#
-# print(Max)
+
+def score_calc(s:str)->int:
+    ln = len(s)
+    score = 0
+    for i in range(1,ln):
+        if s[i-1]==s[i]:
+            score-=50
+        elif abs(ord(s[i-1])-ord(s[i]))<=5:
+            score+=3
+        elif abs(ord(s[i-1])-ord(s[i]))>=20:
+            score+=10
+    return score
+
+def swap_str(depth:int, strlen:int, S:str):
+    global Max
+    if depth==n:
+        Max = max(Max,score_calc(S))
+        return
+    for i in range(strlen):
+        for j in range(i+1,strlen):
+            swap_str(depth+1, strlen, S[:i]+S[j]+S[i+1:j]+S[i]+S[j+1:])
+
+st= input()
+st_len = len(st)
+n = int(input())
+Max = 0
+swap_str(0,st_len,st)
+
+print(Max)
+"""
