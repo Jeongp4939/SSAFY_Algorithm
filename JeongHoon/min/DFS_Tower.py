@@ -24,3 +24,19 @@ print(cnt)
 """
 
 # 2 Graph 순회
+def preorder():
+    return
+
+def postorder():
+    return
+
+N,M = map(int,input().split())
+graph = [[]*(N+1)]
+st_node = int(input())
+for _ in range(M):
+    st,ed = map(int,input().split())
+    graph[st].append(ed)
+    graph[ed].append(st)
+
+
+    
