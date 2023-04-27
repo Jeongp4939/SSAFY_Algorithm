@@ -113,3 +113,58 @@ print()
 visited=[0]*(N+1)
 postorder(1)
 """
+"""
+# 4. 럭셔리 여행
+def dfs(st,ed, sum=0):
+    global Max,Min
+    if st == ed:
+        Min = min(Min,sum)
+        Max = max(Max,sum)
+        return
+    for i in range(N):
+        if not visited[i] and arr[st][i]:
+            visited[i] = 1
+            dfs(i,ed, sum+arr[st][i])
+            visited[i] =0
+
+N = int(input())
+arr = [list(map(int,input().split())) for _ in range(N)]
+st, ed = map(int,input().split())
+visited =[0]*N
+Max = 0
+Min = 28e8
+visited[st]=1
+dfs(st,ed)
+print(Min)
+print(Max)
+"""
+"""
+# 5. 헤밀턴 회로
+def dfs(now, depth=0, sum=0):
+    global Min
+    # N개의 노드를 방문 했을 때만 수를 확인
+    if sum>=Min:
+        return
+    if depth==N:
+        if now == 0:
+            Min = min(Min,sum)
+        return
+    if depth < N-1:
+        for i in range(1,N):
+            if not visited[i] and arr[now][i]:
+                visited[i] = 1
+                dfs(i,depth+1, sum+arr[now][i])
+                visited[i] =0
+    else:
+        if arr[now][0] and not visited[0]:
+            dfs(0,depth+1,sum+arr[now][0])
+
+N = int(input())
+arr = [list(map(int,input().split())) for _ in range(N)]
+visited =[0]*N
+Min = 28e8
+# 시작점으로 다시 돌아와야하므로 시작점의 visited를 0으로 놔둠
+dfs(0)
+print(Min)
+"""
+
