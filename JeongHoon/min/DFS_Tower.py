@@ -168,3 +168,17 @@ dfs(0)
 print(Min)
 """
 
+# 7 등수 찾기
+def dfs(st,ed, depth=0):
+    if st==ed or not arr[st]:
+        return depth
+    dfs(arr[st][0],depth+1)
+
+n,m,x = map(int(input))
+u=v=0
+depth=0
+arr = [[] for _ in range(n)]
+for i in range(m):
+    st,ed = map(int,input().split())
+    arr[st].append(ed)
+
