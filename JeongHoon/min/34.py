@@ -118,5 +118,47 @@ N = int(input())
 arr = [input() for _ in range(N)]
 print(binarySearchArray(),binarySearch(binarySearchArray()))
 """
-
+"""
 # 5 root 계산기
+
+def binarySearch(n):
+    st = 0
+    ed = n//2
+    while 1:
+        mid = (st+ed)//2
+        target = mid*mid
+        if target < n and (mid+1)*(mid+1) > n:
+            return mid
+        if target > n:
+            ed = mid - 1
+        else:
+            st = mid + 1
+
+n=int(input())
+print(binarySearch(n))
+"""
+"""
+# 6 금 나와라 황금보자기(bs가 가능해??)
+
+from heapq import heappush, heappop, heapify
+
+def check(arr:list):
+    cnt=0
+    while arr:
+        # 2번 꺼내기
+        for _ in range(2):
+            a = heappop(golds)
+            if a[1]==0:
+                cnt+=1  # 금 꺼내면 +1
+            else:
+                return cnt
+        heappush(golds,(a[0]*2,1))  # 돌 넣기
+
+n = int(input())
+lst = list(map(int,input().split()))
+golds = [(a,0) for a in lst]
+# min-heap
+heapify(golds)
+# print(golds)
+print(check(golds))
+"""
