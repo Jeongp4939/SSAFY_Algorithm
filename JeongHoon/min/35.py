@@ -64,3 +64,47 @@ while heap:
         break
 print(f'{time}초')
 """
+"""
+# 4 통행료 몰래 올리기
+
+from heapq import heappop, heappush
+
+n = int(input())
+arr= [list(map(int,input().split())) for _ in range(n)]
+heap=[]
+
+for i in range(n):
+    for j in range(n):
+        if i!=j and arr[i][j]!=-1:
+            heappush(heap, [arr[i][j],i,j])
+for _ in range(10):
+    price = heappop(heap)
+    price[0] *= 2
+    heappush(heap,price)
+print(f'{price[0] * 2}만원')
+"""
+
+# 5 Ugly Number
+
+from heapq import heappop as hpop, heappush as hpush
+
+N = int(input())
+K = list(map(int,input().split()))
+
+ugly = []
+
+heap = [1]
+hpush(heap, 2)
+hpush(heap, 3)
+hpush(heap, 5)
+
+while len(ugly) < 1501:
+    n = hpop(heap)
+    if n not in ugly:
+        ugly.append(n)
+        hpush(heap, n*2)
+        hpush(heap, n*3)
+        hpush(heap, n*5)
+for i in K:
+    print(ugly[i-1], end=' ')
+print()
