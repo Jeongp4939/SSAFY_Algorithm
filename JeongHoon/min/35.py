@@ -83,7 +83,7 @@ for _ in range(10):
     heappush(heap,price)
 print(f'{price[0] * 2}만원')
 """
-
+"""
 # 5 Ugly Number
 
 from heapq import heappop as hpop, heappush as hpush
@@ -108,3 +108,50 @@ while len(ugly) < 1501:
 for i in K:
     print(ugly[i-1], end=' ')
 print()
+"""
+
+# 6 정중앙 대학교
+#
+# import sys
+# from heapq import heappush, heappop
+#
+# input = sys.stdin.readline
+#
+# n = int(input())
+# heap = [500]
+#
+# cnt = 1
+#
+# for _ in range(n):
+#     answer = []
+#     a,b = map(int,input().split())
+#     heappush(heap, a)
+#     heappush(heap, b)
+#     while heap:
+#         answer.append(heappop(heap))
+#     heap = answer[:]
+#     cnt+=2
+
+import sys
+from heapq import heappush, heappop
+input = sys.stdin.readline
+
+n = int(input())
+maxheap = [-500]
+minheap = []
+
+for _ in range(n):
+    input_lst = list(map(int,input().split()))
+    for i in input_lst:
+        if i < -maxheap[0]:
+            heappush(maxheap, -i)
+        else:
+            heappush(minheap, i)
+
+        if len(maxheap)>len(minheap):
+            heappush(minheap,-heappop(maxheap))
+        if len(maxheap)<len(minheap):
+            heappush(maxheap, -heappop(minheap))
+
+    print(-maxheap[0])
+
