@@ -63,12 +63,11 @@ for _ in range(m):
 print(dijkstra(a, b))
 
 for _ in range(k):
-
     p = int(input())
-    for i in graph:
-        if i:
-            for j in i:
-                j[1] += p
+
+    for i in range(1,n+1):
+        for j in range(len(graph[i])):
+            graph[i][j][1] += p
     print(dijkstra(a,b))
 
 
