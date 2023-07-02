@@ -3,9 +3,9 @@ import sys
 
 input = sys.stdin.readline
 
-INF = 10e10
+INF = 1e9
 
-def dijkstra(n,st):
+def dijkstra(st):
     distances = [INF] * (n + 1)
     distances[st] = 0
     q = []
@@ -21,7 +21,7 @@ def dijkstra(n,st):
             distance = dist + new_dist
             if distance < distances[new_node]:
                 distances[new_node] = distance
-                heapq.heappush(q, [distance, new_node])
+                heapq.heappush(q, (distance, new_node))
     return distances
 
 for tc in range(int(input())):
@@ -35,16 +35,16 @@ for tc in range(int(input())):
         a,b,d = map(int,input().split())
         graph[a].append((b,d))
         graph[b].append((a,d))
-        if a==g and b==h or a==h and b==g:
-            cross_dist = d
 
-    dist_s = dijkstra(n,s)
-    dist_g = dijkstra(n,g)
-    dist_h = dijkstra(n,h)
+    dist_s = dijkstra(s)
+    dist_g = dijkstra(g)
+    dist_h = dijkstra(h)
 
     for j in range(t):
         x = int(input())
-        if dist_s[x] == dist_s[g]+dist_g[h]+dist_h[x] or dist_s[x] == dist_s[h]+dist_h[g]+dist_g[x]:
+        res1 = dist_s[g]+dist_g[h]+dist_h[x]
+        res2 = dist_s[h]+dist_h[g]+dist_g[x]
+        if dist_s[x] == res1 or dist_s[x] == res2:
             result.append(x)
 
     result.sort()
