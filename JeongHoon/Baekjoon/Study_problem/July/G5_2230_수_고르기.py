@@ -20,4 +20,4 @@ while left<=right and right < n:
         result = min(gap,result)
         left +=1
 
-print(result)
+print(result) #.
