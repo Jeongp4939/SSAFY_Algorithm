@@ -1,4 +1,4 @@
-""" dijkstra (23점)
+# dijkstra (23점)
 # a,b 가 통신할 때, a,b는 같은 노드에 있는 것이 아니라 이어진 두 노드에 각각 존재
 
 import sys
@@ -8,7 +8,7 @@ input = sys.stdin.readline
 def dijkstra(st):
     distances = [[INF,[]] for _ in range(n + 1)]
     distances[st][0] = 0
-    distances[st][1] += [0]
+    distances[st][1] = 0
     q = [(0,st)]
 
     while q:
@@ -20,7 +20,7 @@ def dijkstra(st):
 
             if dist < distances[next_x][0]:
                 distances[next_x][0] = next_dist
-                distances[next_x][1] = distances[x][1] + [new_dist]
+                distances[next_x][1] = max(distances[x][1], new_dist)
                 heapq.heappush(q,(next_dist,next_x))
     return distances
 
@@ -36,7 +36,6 @@ for _ in range(n-1):
 
 distances = dijkstra(a)
 
-print(distances[b][0]-max(distances[b][1]))
-"""
+print(distances[b][0]-distances[b][1])
 
 ###
